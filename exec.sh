@@ -11,7 +11,12 @@ while :; do
 
     for u in $(echo $GITHUB_USER | tr "," "\n"); do
         echo "$(date) - execute backup for ${u}, ${DATE}"
-        github-backup ${u} --token=$TOKEN --all --output-directory=/srv/var/${DATE}/${u} --private --gists
+        github-backup ${u} --token=$TOKEN --all --output-directory=/srv/var/${DATE}/${u} --private --gists --fork
+    done
+
+    for u in $(echo $GITHUB_ORG_USER | tr "," "\n"); do
+        echo "$(date) - execute backup for orginization ${u}, ${DATE}"
+        github-backup ${u} --token=$TOKEN --all --output-directory=/srv/var/${DATE}/${u} --organization --private --gists --fork
     done
 
     echo "$(date) - cleanup"
